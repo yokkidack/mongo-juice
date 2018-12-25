@@ -14,8 +14,9 @@ g++ -std=c++1z -o count count-mongo-files-in-collection.cpp $(pkg-config --cflag
 files_in_collection="$(./count)"
 cd ..
 echo "I ve counted ${files_in_collection} files in collection ..." | lolcat -F 0.3
-echo "Im starting downloading files..." | lolcat -F 0.3
-./mongo --path=/home/y/Documents/m-ad/files/
+echo "Im starting downloading files..." | lolcat -F 0.3]
+path="$(pwd)/files/"
+./mongo --path=${path}
 count_downloaded="$(find files/ -iname "*" | wc -l)"
 count_downloaded=$((count_downloaded - 1))
 echo "I ve downloaded ${count_downloaded}" | lolcat -F 0.3
