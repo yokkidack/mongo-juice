@@ -1,0 +1,30 @@
+#!/bin/bash
+if [ -z "$*" ];
+then 
+echo "Started building..."
+sudo cmake . | lolcat -F 0.3
+echo "Building ended..."
+echo "Making..."
+sudo make 
+./sta
+fi
+while [ -n "$1" ]
+do
+case "$1" in 
+-p) 
+sudo cmake . | lolcat -F 0.3
+sudo make 
+./sta -p
+;;
+-list)
+echo "Started building..."
+sudo cmake . | lolcat -F 0.3
+echo "Building ended..."
+echo "Making..."
+sudo make 
+./sta
+ls files/*
+;;
+esac
+shift 
+done
