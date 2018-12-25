@@ -19,16 +19,28 @@
 #include <boost/program_options.hpp>
 #include <nlohmann/json.hpp>
 #include "mongo_agent_nice.hpp"
+#include "easylogging++.h"
+
+INITIALIZE_EASYLOGGINGPP
 
 std::string CONFIG{ "../config.json" };
 namespace po = boost::program_options;
 
 using namespace std;
 
+class MyClass : public el::Loggable {
+public:
+    MyClass(const std::string& name) : m_name(name) {}
+
+    virtual inline void log(el::base::type::ostream_t& os) const {
+        os << m_name.c_str();
+    }
+private:
+    std::string m_name;
+};
+
 int main(int argc, char* argv[])
 {
-
-    std::string mod; //= opts["mod"].as<std::string>();
     std::string db_name; //= opts["db_name"].as<std::string>();
     std::string coll_name; // = opts["coll_name"].as<std::string>();
     std::string uri; // = opts["uri"].as<std::string>();
@@ -39,7 +51,7 @@ int main(int argc, char* argv[])
         po::options_description desc("Allowed options");
         desc.add_options()
         ("help", "produce help message")
-        ("bd", po::value<std::string>(&db_name)->
+        ("db", po::value<std::string>(&db_name)->
 default_value("test"),"spec bd name")
         ("coll", po::value<std::string>(&coll_name)->
 default_value("test"), "spec coll name")
@@ -49,9 +61,9 @@ default_value("mongodb://localhost:27017"), "spec uri")
 default_value("replicating-mongo-agent"), "spec app display name")
         ("path", po::value<std::string>(&path)->
 default_value("/home/yok/Documents/m-ad/files/"), "spec path")
-        /*("logging", po::value<bool>(&logging)->
-default_value(true), "Do you really need all this logging?")*/
-        ;
+       ;
+
+      
 
         po::variables_map vm;
         po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -69,8 +81,19 @@ default_value(true), "Do you really need all this logging?")*/
     catch (...) {
         cerr << "Exception of unknown type!\n";
     }
+    LOG(INFO) << "Loging is starting...";
+    LOG(INFO) << "";
+    LOG(INFO) << "Here are configurations im using currently:";
+    LOG(INFO) << "{";
+    LOG(INFO) << "  target_data_base_name : " << db_name;
+    LOG(INFO) << "  target_collection_name : " << coll_name;
+    LOG(INFO) << "  uri : " << uri;
+    LOG(INFO) << "  app_display_name : " << app_name;
+    LOG(INFO) << "  path_to_download_files : " << path;
+    LOG(INFO) << "}";
+    LOG(INFO) << "";
 
-   
+    
     mongoc_client_t* client;
     mongoc_collection_t* collection;
     mongoc_cursor_t* cursor;
@@ -90,7 +113,13 @@ default_value(true), "Do you really need all this logging?")*/
         std::cout << "Faild to parse uri." << std::endl
                   << "Check uri in config." << std::endl
                   << "Uri provided: " << uri << std::endl;
+        LOG(ERROR) << "Faild to parse uri.";
+        LOG(ERROR) << "Uri provided: " << uri;
+        LOG(ERROR) << error.message;
+        LOG(FATAL) << "EXIT_FAILURE:uri error";
         exit(EXIT_FAILURE);
+    } else {
+        LOG(INFO) << "uri parsed successfully";
     }
 
     client = mongoc_client_new_from_uri(uri_mongoc);
@@ -119,6 +148,7 @@ default_value(true), "Do you really need all this logging?")*/
         // or
         // 5bfe9d95700db5cf39eff9f7
         // instead of file_num_0000000000
+        LOG(INFO) << "File with iod \"" << str_oid << "\" got";  
         doc_string_to_file(
             str,
             path + str_oid);
@@ -132,4 +162,3 @@ default_value(true), "Do you really need all this logging?")*/
     mongoc_cleanup();
     return 0;
 }
-
