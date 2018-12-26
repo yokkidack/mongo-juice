@@ -20,6 +20,8 @@
 #include <nlohmann/json.hpp>
 #include "mongo_agent_nice.hpp"
 #include "easylogging++.h"
+#include "picosha2.h"
+
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -148,11 +150,47 @@ default_value("/home/yok/Documents/m-ad/files/"), "spec path")
         // or
         // 5bfe9d95700db5cf39eff9f7
         // instead of file_num_0000000000
-        LOG(INFO) << "File with iod \"" << str_oid << "\" got";  
-        doc_string_to_file(
-            str,
-            path + str_oid);
-        bson_free(str);
+        // LOG(INFO) << "File with iod \"" << str_oid << "\" got";  
+        std::ifstream test_if_exists( path + str_oid );
+        if (test_if_exists.fail()) {
+            LOG(INFO) << "This file is NEW";
+            doc_string_to_file(
+                str,
+                path + str_oid);
+            LOG(INFO) << "This file is downloaded";
+        } else {
+            LOG(INFO) << "This file is OLD";
+            LOG(INFO) << "Checking if this file is different...";
+            // test_if_exists.open();
+            
+            std::string old_contents;
+            std::string str_string = (std::string)str;
+            std::getline(test_if_exists, old_contents);
+            std::string hash_hex_str_old=picosha2::hash256_hex_string(
+                            old_contents.begin(), old_contents.end());
+            std::string hash_hex_str_new=picosha2::hash256_hex_string
+                            (str_string.begin(), str_string.end());
+            
+            
+            
+            LOG(INFO) << "Old file hash : " << hash_hex_str_old;
+
+            LOG(INFO) << "New file hash : " << hash_hex_str_new;
+            if (str_string.compare(old_contents) == 0) {
+                LOG(INFO) << "eq";            
+            } else {
+                LOG(INFO) << "!eq\n" << "\n" << old_contents;
+            }
+            if (hash_hex_str_old.compare(hash_hex_str_new) == 0) {
+                LOG(INFO) << "Files are the same, skiping file " << str_oid;
+            } else {
+                LOG(INFO) << "File is changed, overwriting file " << str_oid;
+                doc_string_to_file(
+                str,
+                path + str_oid);
+            }
+            bson_free(str);
+        }
     }
 
     bson_destroy(query);
