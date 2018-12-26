@@ -25,12 +25,13 @@ find_package ( libbson-1.0 1.7 REQUIRED )
 find_package ( libmongoc-1.0 1.7 REQUIRED )
 find_package ( nlohmann_json CONFIG REQUIRED )
 find_package ( Boost CONFIG REQUIRED COMPONENTS program_options)
-find_package(Boost CONFIG REQUIRED log)
+find_package ( Boost CONFIG REQUIRED log )
 find_package ( BoostProcess CONFIG REQUIRED )
 
 add_executable(
 	mongo
 	demo/mongo-agent.cpp 
+    demo/easylogging++.cc
 )
 
 add_executable(
@@ -46,8 +47,11 @@ target_link_libraries (mongo
                        nlohmann_json
                        Boost::program_options
                        Boost::log
-                       
+                      
                        )
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/_3rdParty/easylogging++/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/_3rdParty/picosha2/)
+
 target_compile_definitions (mongo PRIVATE ${BSON_DEFINITIONS})
 target_compile_definitions (mongo PRIVATE "${MONGOC_DEFINITIONS}")
 
