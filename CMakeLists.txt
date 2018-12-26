@@ -14,7 +14,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(BUILD_TESTS "tests" OFF)
 
-hunter_add_package (nlohmann_json)
 hunter_add_package(BoostProcess)
 hunter_add_package(Boost COMPONENTS program_options)
 hunter_add_package(Boost COMPONENTS log)
@@ -23,7 +22,7 @@ hunter_add_package(Boost COMPONENTS log)
 
 find_package ( libbson-1.0 1.7 REQUIRED )
 find_package ( libmongoc-1.0 1.7 REQUIRED )
-find_package ( nlohmann_json CONFIG REQUIRED )
+
 find_package ( Boost CONFIG REQUIRED COMPONENTS program_options)
 find_package ( Boost CONFIG REQUIRED log )
 find_package ( BoostProcess CONFIG REQUIRED )
@@ -44,12 +43,12 @@ target_include_directories (mongo PRIVATE "${MONGOC_INCLUDE_DIRS}")
 target_link_libraries (mongo 
                        PRIVATE ${BSON_LIBRARIES}
 		               PRIVATE "${MONGOC_LIBRARIES}" 
-                       nlohmann_json
+                       
                        Boost::program_options
                        Boost::log
                       
                        )
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/_3rdParty/easylogging++/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/_3rdParty/easylogging++/scr/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/_3rdParty/picosha2/)
 
 target_compile_definitions (mongo PRIVATE ${BSON_DEFINITIONS})
