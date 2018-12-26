@@ -1,6 +1,6 @@
 #!/bin/bash
 mkdir -p  files
-rm files/* -f
+# rm files/* -f
 echo "start..."
 echo "Welcome to mongo-to-amazon-dynamo-db-replication!"| lolcat -F 0.3
 echo "  __    __ _____ _____ ___   _____" | lolcat -F 0.3
