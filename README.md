@@ -66,4 +66,4 @@ $ make
 $ ./mongo --db=<datebase name> --coll=<collection name> --path=<path to save files>
 ~~~
 
-Для полного списка опций используйте ключ ```--help```
+use ```--help``` for full list of arguments
