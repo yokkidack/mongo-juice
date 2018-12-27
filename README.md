@@ -39,3 +39,31 @@
 
 ~~~
 [comment]: # (use http://asciiflow.com to edit scheme)
+
+## How to build it:
+
+* Quick build mongo-agent with default options:
+    
+exequte ```quick-start``` :
+
+~~~
+$ ./quick-start
+~~~
+
+* Build tests:
+
+~~~
+$ cmake -DBUILD_TESTS=ON --target tests-d
+$ make
+$ ./tests-d
+~~~
+
+* Build tests with castom args:
+
+~~~
+$ cmake --target mongo
+$ make
+$ ./mongo --db=<datebase name> --coll=<collection name> --path=<path to save files>
+~~~
+
+Для полного списка опций используйте ключ ```--help```
