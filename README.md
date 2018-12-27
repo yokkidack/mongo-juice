@@ -1,6 +1,8 @@
 # mongo juice
 
-"This is simple downloader of all your mongo db data"
+
+##### _"This is simple downloader of all your mongo db data"_
+----
 
 ![logo][logo]
 
@@ -58,7 +60,7 @@ $ make
 $ ./tests-d
 ~~~
 
-* Build tests with castom args:
+* Build `mongo-agent` with castom args:
 
 ~~~
 $ cmake --target mongo
