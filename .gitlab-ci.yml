@@ -1,3 +1,9 @@
+stages:
+  - test
+
+tags : test
+
 test:
-    script:
-        echo "Test"
+  stage: test
+  script:
+    - ./start
