@@ -5,4 +5,4 @@ test:
   tags:
     - test
   script:
-    - ./quick-start
+    - ./quick-start -list
