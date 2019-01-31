@@ -2,5 +2,7 @@ stages:
   - test
 test:
   stage: test
+  tags:
+    - test
   script:
     - ./start
