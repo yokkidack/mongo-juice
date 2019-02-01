@@ -1,3 +1,15 @@
-test:
+stages:
+    - setup
+    - test
+setup:
+    stage: setup
+    tags:
+        - test
     script:
-        echo "Test"
+        - gem install lolcat
+test:
+  stage: test
+  tags:
+    - test
+  script:
+    - ./quick-start
