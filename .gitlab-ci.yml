@@ -4,12 +4,12 @@ stages:
 setup:
     stage: setup
     tags:
-        - test
+        - osx
     script:
         - gem install lolcat
 test:
-  stage: test
-  tags:
-    - test
-  script:
-    - ./quick-start
+    stage: test
+    tags:
+        - osx
+    script:
+        - ./quick-start
