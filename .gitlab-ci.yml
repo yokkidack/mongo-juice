@@ -12,4 +12,4 @@ test:
   tags:
     - mint
   script:
-    - ./quick-start
+    - ./quick-start -list
