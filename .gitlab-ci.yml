@@ -4,12 +4,12 @@ stages:
 setup:
     stage: setup
     tags:
-        - test
+        - mint
     script:
         - gem install lolcat
 test:
   stage: test
   tags:
-    - test
+    - mint
   script:
     - ./quick-start
