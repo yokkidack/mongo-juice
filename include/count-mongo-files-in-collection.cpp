@@ -42,7 +42,7 @@ int main () {
 
     std::string uri {"mongodb://localhost:27017"};//{config_json[mod]["uri"] };
     uri+="/?appname=";
-    uri+="replicating-mongo-agent";// config_json["mongo_agent_application_name"];
+    uri+="counting-mongo-agent";// config_json["mongo_agent_application_name"];
 
     //parseing uri string
     uri_mongoc = mongoc_uri_new_with_error (uri.c_str(), &error);
