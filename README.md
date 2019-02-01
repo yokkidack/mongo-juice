@@ -91,7 +91,8 @@ use ```--help``` for full list of arguments
 ```
 The MIT License (MIT)
 
-Copyright (c) 2018 @yokkidack
+Copyright (c) 2019 @yokkidack <Igor Roshchin>
+Copyright (c) 2018 Varvara Isaeva (logo)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
