@@ -1,5 +1,12 @@
 stages:
-  - test
+    - setup
+    - test
+setup:
+    stage: setup
+    tags:
+        - test
+    script:
+        - gem install lolcat
 test:
   stage: test
   tags:
