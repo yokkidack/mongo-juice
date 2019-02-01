@@ -6,7 +6,7 @@ setup:
     tags:
         - mint
     script:
-        - gem install lolcat
+        - sudo gem install lolcat
 test:
   stage: test
   tags:
