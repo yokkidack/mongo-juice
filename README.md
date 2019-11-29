@@ -26,7 +26,7 @@ juice, im lonely, please help)
 <a href="#licence">Licence</a>
 </pre>
 
-[![top] Goto Top](#table-of-contents)
+[to the top](#table-of-contents)
  
 ### Overview
 
@@ -118,7 +118,7 @@ I made this tool as a tearm project for TIMP class in 2018-2019. Mongo-juice is 
     
 5. Локальное хранилище 
 
-[![top] Goto Top](#table-of-contents)
+[to the top](#table-of-contents)
 
 # How to build it
 
@@ -148,7 +148,7 @@ $ ./mongo --db=<datebase name> --coll=<collection name> --path=<path to save fil
 
 use ```--help``` for full list of arguments
 
-[![top] Goto Top](#table-of-contents)
+[to the top](#table-of-contents)
 
 # Licence
 ```
